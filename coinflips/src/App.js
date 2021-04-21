@@ -4,7 +4,6 @@ function App() {
   function tossCoin() {
     return Math.random() > 0.5 ? "heads" : "tails";
   }
-  let attempts = 0;
   function fiveHeads() {
         return new Promise( (resolve, reject) => {
             let headsCount = 0;
@@ -14,18 +13,22 @@ function App() {
               let result = tossCoin();
               console.log(`${result} was flipped`);
               if(result === "heads") {
-                resolve (headsCount++);
+                headsCount++;
               } else {
-                reject (headsCount = 0);
+                headsCount = 0
               }
             }
-            console.log(`It took ${attempts} tries to flip five 'heads'`);
+            if (attempts < 101) {
+              resolve(`It took ${attempts} tries to flip five heads!`)
+            } else {
+              reject("Too bad. It took over 100 tries to flip five heads. You lose :(")
+            }
         });
     }
     fiveHeads()
         .then( res => console.log(res) )
         .catch( err => console.log(err) );
-    console.log( "We finished!" );
+    console.log( "When does this run now?" );
     
   return (
     <div className="App">
